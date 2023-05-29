@@ -1,0 +1,71 @@
+一、环境准备
+
+1、apt换源
+https://mirrors.tuna.tsinghua.edu.cn/help/ubuntu/
+sudo gedit /etc/apt/sources.list
+sudo apt update
+
+2、安装Git
+sudo apt-get install git
+
+3、安装Docker（包括docker、docker-compose）
+3.1安装
+sudo apt-get -y install docker-compose
+3.2验证是否安装成功
+docker --version
+Docker version 20.10.21, build 20.10.21-0ubuntu1~22.04.3
+docker-compose --version
+docker-compose version 1.29.2, build unknown
+3.3启动
+sudo systemctl start docker（启动）
+sudo systemctl enable docker（开机自启）
+3.4设置权限
+sudo usermod -a -G docker gyl（设置完之后记得重启）
+
+4、Docker加速器
+https://cr.console.aliyun.com/cn-hangzhou/instances/mirrors
+
+
+5、安装Go
+首先到链接https://go.dev/doc/install去下载Linux版本的压缩包
+sudo su
+rm -rf /usr/local/go && tar -C /usr/local -xzf go1.20.4.linux-amd64.tar.gz
+
+gedit /etc/profile
+将export PATH=$PATH:/usr/local/go/bin这句代码添加进去（作用是给管理员添加环境变量）
+gedit ~/.bashrc
+将source /etc/profile这句代码添加进去（作用是给gyl用户添加环境变量）
+
+6、配置go代理
+go env -w GO111MODULE=on
+go env -w GOPROXY=https://goproxy.cn,direct
+
+
+二、安装fabric-samples
+1、手动创建脚本
+https://github.com/hyperledger/fabric/blob/main/scripts/bootstrap.sh
+（上面的url默认是指向最新的文件，但是我使用的是旧版本，可以打开history找到其他的版本）
+修改binaries=false
+sudo chmod u+x bootstrap.sh
+./bootstrap.sh
+
+2、安装binaries
+https://github.com/hyperledger/fabric/releases/download/v2.4.1/hyperledger-fabric-linux-amd64-2.4.1.tar.gz
+https://github.com/hyperledger/fabric-ca/releases/download/v1.5.2/hyperledger-fabric-ca-linux-amd64-1.5.2.tar.gz
+tar -xzvf 压缩包名 -C ../myFabric/fabric-samples
+
+
+三、测试fabric-samples
+1、Bring up the test network
+1.1进入测试网络的目录
+cd fabric-samples/test-network
+1.2先清除之前运行的结点或者建立的通道
+./network.sh down
+1.3开启网络
+./network.sh up
+2、
+
+
+
+
+
