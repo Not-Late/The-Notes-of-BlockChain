@@ -44,11 +44,12 @@ rm -rf /usr/local/go && tar -C /usr/local -xzf go1.20.4.linux-amd64.tar.gz
 
 gedit /etc/profile
 
-将export PATH=$PATH:/usr/local/go/bin这句代码添加进去（作用是给管理员添加环境变量）
+将export PATH=$PATH:/usr/local/go/bin这句代码添加到/etc/profile文件中去
+（这是用于系统范围的安装，/etc/profile是一个全局的系统配置文件，用于设置全局的环境变量和默认的系统环境。它是在系统启动时由各个用户共享的，因此这样设置了之后系统中的每个用户都能共享这个环境变量。）
 
 gedit ~/.bashrc
 
-将source /etc/profile这句代码添加进去（作用是给gyl用户添加环境变量）
+将source /etc/profile这句代码添加进去（作用是给gyl用户添加环境变量，source是为了生效，以后想要给哪个用户添加go环境变量，只要在该用户的.bashrc文件中加上代码source /etc/profile就行，root用户的.bashrc文件中也有这一句代码，删了之后root用户就没有go环境了）
 
 ## 1.6 配置go代理
 为了加快速度
